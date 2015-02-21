@@ -1,6 +1,8 @@
 #include <stdlib.h> /* srand, rand */
-#include <time.h> /* time */
+#include <sys/time.h> /* time */
 int get_random_number(int n) {
-	srand(time(NULL));
-	return rand() % n + 1; // random number between 1 and n
+	struct timeval time;
+	gettimeofday(&time, NULL);
+	srand((time.tv_sec)+(time.tv_usec));
+	return rand() % n; // random number out of n
 }

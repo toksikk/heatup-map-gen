@@ -4,7 +4,6 @@ gametile::gametile() {
 	wall = true;
 	way = false;
 	hardware = false;
-	hardware_number = 10;
 }
 gametile::~gametile() {
     
