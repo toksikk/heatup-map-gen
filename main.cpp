@@ -51,12 +51,19 @@ int main(void) {
 */
 	// algorithm generates a way-pattern and afterwards sets 9 1 block sized manipulable gametiles.
 	int waymapcoveringgoal = 100;
+	int maxbordering = 2;
 
 	for (int i=0; i< (32*24/100.0)*waymapcoveringgoal; i++) {
 		int posx = get_random_number(32);
 		int posy = get_random_number(24);
-		if (i==0) gm->getTile(posx,posy)->setWay();
-		while (check_bordering_way_amount(gm, posx, posy) != 1) {
+		if (i==0) {
+			for (int i=0; i<maxbordering; i++) {
+				gm->getTile(posx,posy)->setWay();
+				posx = get_random_number(32);
+				posy = get_random_number(24);
+			}
+		}
+		while (check_bordering_way_amount(gm, posx, posy) != maxbordering) {
 			tries++;
 			posx = get_random_number(32);
 			posy = get_random_number(24);
