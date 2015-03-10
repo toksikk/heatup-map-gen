@@ -7,8 +7,10 @@ int main(void) {
 	gamemap* gm = new gamemap();
 	int hw = -1;
 	int tries = 0;
-	int hwtotaltiles = 0;
-	
+	int maxtries = 5000; // rather primitive way, but <5000 happens to generate maps with almost no ways
+
+
+//	int hwtotaltiles = 0;
 	// the following algorithm sets hardware blocks but no ways.
 	// for the purpose if somebody wants to implement an algorithm to generate ways along existing hardware.
 /*	for (int i = 0; i < 9; i++) {
@@ -49,9 +51,11 @@ int main(void) {
 		}
 	}
 */
+
+
 	// algorithm generates a way-pattern and afterwards sets 9 1 block sized manipulable gametiles.
-	int waymapcoveringgoal = 100;
-	int maxbordering = 2;
+	int waymapcoveringgoal = 50;
+	int maxbordering = 1; // this has to be 1 - was trying to figure out a way to use this for something I can't remember
 
 	for (int i=0; i< (32*24/100.0)*waymapcoveringgoal; i++) {
 		int posx = get_random_number(32);
@@ -70,24 +74,33 @@ int main(void) {
 			while (gm->getTile(posx,posy)->getChar() == '#') {
 				posx = get_random_number(32);
 				posy = get_random_number(24);
-				if (tries > 100000) break;
+				if (tries > maxtries) break;
 			}
-			if (tries > 100000) break;
+			if (tries > maxtries) break;
 		}
-		if (tries > 100000) break;
+		if (tries > maxtries) break;
 		gm->getTile(posx,posy)->setWay();
+		tries = 0;
 	}
 
 	for (int i=0; i<9; i++) {
 		hw++;
+		cout << "Generating for HW Tile " << hw << " ";
 		int posx = get_random_number(32);
 		int posy = get_random_number(24);
 
-		while (gm->getTile(posx, posy)->getChar() != '-') {
+		int test = check_bordering_way_amount(gm, posx, posy);
+
+		while ((gm->getTile(posx, posy)->getChar() != '-') && (check_bordering_way_amount(gm, posx, posy) == 0)) {
+			
+			test = (check_bordering_way_amount(gm, posx, posy));
+
+			cout << test1 << " ";
 			posx = get_random_number(32);
 			posy = get_random_number(24);
 		}
 		gm->getTile(posx, posy)->setHardware(i);
+		cout << endl;
 	}
 
 	gm->printMap();

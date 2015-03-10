@@ -1,20 +1,23 @@
+OBJ = main.o gamemap.o gametile.o random_number.o position_checker.o
+GCC_ARGS = -ansi -Wall -pedantic-errors
+
 mapgen: main.o gamemap.o gametile.o random_number.o position_checker.o
-	g++ main.o gamemap.o gametile.o random_number.o position_checker.o -o mapgen
+		g++ $(GCC_ARGS) $^ -o $@
 
 main.o: main.cpp gamemap.h random_number.h
-	g++ -c main.cpp gamemap.h random_number.h
+	g++ $(GCC_ARGS) -c $^
 
 gamemap.o: gamemap.cpp gamemap.h gametile.h
-	g++ -c gamemap.cpp gamemap.h gametile.h
+	g++ $(GCC_ARGS) -c $^
 
-gametile.o: gametile.cpp gametile.h
-	g++ -c gametile.cpp gametile.h
+gametile.o: gametile.cpp
+	g++ $(GCC_ARGS) -c $^
 
 random_number.o: random_number.cpp
-	g++ -c random_number.cpp
+	g++ $(GCC_ARGS) -c $^
 
 position_checker.o: position_checker.cpp gametile.h gamemap.h
-	g++ -c position_checker.cpp gametile.h gamemap.h
+	g++ $(GCC_ARGS) -c $^
 
 clean:
 	rm *.o
