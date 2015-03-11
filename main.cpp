@@ -54,7 +54,7 @@ int main(void) {
 
 
 	// algorithm generates a way-pattern and afterwards sets 9 1 block sized manipulable gametiles.
-	int waymapcoveringgoal = 50;
+	int waymapcoveringgoal = 100;
 	int maxbordering = 1; // this has to be 1 - was trying to figure out a way to use this for something I can't remember
 
 	for (int i=0; i< (32*24/100.0)*waymapcoveringgoal; i++) {
@@ -85,22 +85,14 @@ int main(void) {
 
 	for (int i=0; i<9; i++) {
 		hw++;
-		cout << "Generating for HW Tile " << hw << " ";
 		int posx = get_random_number(32);
 		int posy = get_random_number(24);
 
-		int test = check_bordering_way_amount(gm, posx, posy);
-
-		while ((gm->getTile(posx, posy)->getChar() != '-') && (check_bordering_way_amount(gm, posx, posy) == 0)) {
-			
-			test = (check_bordering_way_amount(gm, posx, posy));
-
-			cout << test1 << " ";
+		while ((gm->getTile(posx, posy)->getChar() != '-') || (check_bordering_way_amount(gm, posx, posy) < 1)) {
 			posx = get_random_number(32);
 			posy = get_random_number(24);
 		}
 		gm->getTile(posx, posy)->setHardware(i);
-		cout << endl;
 	}
 
 	gm->printMap();
