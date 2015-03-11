@@ -10,6 +10,7 @@ class gametile {
 		gametile();
 		~gametile();
 		void setWay(void);
+		void setWall(void);
 		void setHardware(int number);
 		char getChar(void);
 };

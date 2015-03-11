@@ -12,6 +12,10 @@ void gametile::setWay(void) {
 	wall = false;
 	way = true;
 }
+void gametile::setWall(void) {
+	wall = true;
+	way = false;
+}
 void gametile::setHardware(int number){
 	hardware = true;
 	hardware_number = number;

@@ -4,10 +4,10 @@ GCC_ARGS = -ansi -Wall -pedantic-errors
 mapgen: main.o gamemap.o gametile.o random_number.o position_checker.o
 		g++ $(GCC_ARGS) $^ -o $@
 
-main.o: main.cpp gamemap.h random_number.h
+main.o: main.cpp gamemap.h random_number.h position_checker.h
 	g++ $(GCC_ARGS) -c $^
 
-gamemap.o: gamemap.cpp gamemap.h gametile.h
+gamemap.o: gamemap.cpp gamemap.h gametile.h position_checker.h
 	g++ $(GCC_ARGS) -c $^
 
 gametile.o: gametile.cpp
